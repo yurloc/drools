@@ -9,10 +9,29 @@ import org.drools.persistence.info.WorkItemInfo;
 public class JpaPersistenceContext implements PersistenceContext {
     private EntityManager em;
     
+    /**
+     * True for JTA transaction and false for non-JTA (Spring) transaction. 
+     * Default id JTA
+     */
+    private boolean isJTA = true;
+
     public JpaPersistenceContext(EntityManager em) {
         this.em = em;
     }
 
+    /**
+     * New constructor for spring PlatformTransactionManager.  
+     * This should also work for CMT but is not tested for CMT.
+     * Add input parameter <code>boolean isJTA</code> to the constructor.
+     * 
+     * @param em
+     * @param isJTA 
+     */
+    public JpaPersistenceContext(EntityManager em, boolean isJTA) {
+        this.em = em;
+        this.isJTA = isJTA;
+    }
+    
     public void persist(SessionInfo entity) {
         this.em.persist( entity );
     }
@@ -25,8 +44,13 @@ public class JpaPersistenceContext implements PersistenceContext {
         return this.em.isOpen();
     }
 
+    /**
+     * Spring PlatformTransactionManager and CMT does not need <code>joinTransaction()</code>.
+     */
     public void joinTransaction() {
-        this.em.joinTransaction();
+        if (isJTA) {
+        	this.em.joinTransaction();
+        }    
     }
 
     public void close() {

@@ -9,6 +9,7 @@
     <version>5.3.2-SNAPSHOT</version>
   </parent>
 
+  <version>5.3.2-SPRING-SNAPSHOT</version>
   <artifactId>drools-persistence-jpa</artifactId>
 
   <name>Drools :: Persistence :: JPA</name>
@@ -164,7 +165,7 @@
     <dependency>
       <groupId>org.drools</groupId>
       <artifactId>drools-compiler</artifactId>
-      <version>${project.version}</version>
+      <version>${drools.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
@@ -202,6 +203,8 @@
      them to be empty so that Maven applies them via filtering to the resources. 
      -->
   <properties>
+    <drools.version>5.3.2-SNAPSHOT</drools.version>
+    
     <maven.btm.maxPoolSize>16</maven.btm.maxPoolSize>
     <maven.hibernate.dialect>org.hibernate.dialect.H2Dialect</maven.hibernate.dialect>
     <maven.datasource.classname>bitronix.tm.resource.jdbc.lrc.LrcXADataSource</maven.datasource.classname>

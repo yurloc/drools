@@ -264,10 +264,11 @@ public class SingleSessionCommandService
     
     public void initTransactionManager(Environment env) {
         Object tm = env.get( EnvironmentName.TRANSACTION_MANAGER );
-        if ( env.get( EnvironmentName.PERSISTENCE_CONTEXT_MANAGER ) != null &&
-             env.get( EnvironmentName.TRANSACTION_MANAGER ) != null ) {
+        Object pcm = env.get( EnvironmentName.PERSISTENCE_CONTEXT_MANAGER );
+        // null is never an instanceof another class. 
+        if ( pcm instanceof PersistenceContextManager && tm instanceof TransactionManager ) {
             this.txm = (TransactionManager) tm;
-            this.jpm = (PersistenceContextManager) env.get( EnvironmentName.PERSISTENCE_CONTEXT_MANAGER );
+            this.jpm = (PersistenceContextManager) pcm;
         } else {
             if ( tm != null && tm.getClass().getName().startsWith( "org.springframework" ) ) {
                 try {
