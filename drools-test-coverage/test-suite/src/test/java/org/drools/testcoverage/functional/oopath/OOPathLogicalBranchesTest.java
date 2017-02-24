@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Tests usage of OOPath expressions resulting in multiple conditional branches (e.g. OR operator).
+ * Tests usage of OOPath expressions resulting in multiple conditional branches (e.g. the OR operator).
  */
 public class OOPathLogicalBranchesTest {
 
